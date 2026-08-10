@@ -1,0 +1,14 @@
+cat > .gitignore << 'EOF'
+# OS
+.DS_Store
+
+# Python
+__pycache__/
+*.pyc
+
+# Archives / temp
+*.zip
+
+# NEURON build artifacts
+arm64/
+EOF
