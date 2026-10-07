@@ -11,7 +11,7 @@ cfg = specs.SimConfig()
 
 cfg.hParams = {'celsius': 36, 'v_init': -60 }
 cfg.vrest = cfg.hParams['v_init']
-cfg.duration = 2000
+cfg.duration = 4000
  
 cfg.recordStep = 0.025
 
@@ -80,7 +80,7 @@ cfg.recordTraces['v_soma'] = {'sec': 'soma', 'loc': 0.5, 'var': 'v'}
 #cfg.recordTraces['v_dend_.5'] = {'sec': 'dend', 'loc': 0.5, 'var': 'v'}
 
 #cfg.recordTraces['i_AMPA'] = {'sec':'dend', 'loc':0.5, 'synMech':'AMPA', 'var':'i'}
-#cfg.recordTraces['i_NMDA'] = {'sec':'dend', 'loc':0.5, 'synMech':'NMDA', 'var':'i'}
+cfg.recordTraces['i_NMDA'] = {'sec':'dend', 'loc':0.5, 'synMech':'NMDA', 'var':'i'}
 
 #cfg.recordTraces['g_AMPA'] = {'sec':'dend', 'loc':0.5, 'synMech':'AMPA', 'var':'g'}
 #cfg.recordTraces['g_NMDA'] = {'sec':'dend', 'loc':0.5, 'synMech':'NMDA', 'var':'g'}
@@ -97,7 +97,7 @@ cfg.analysis['plotRaster'] = {'include': ['all'], 'timeRange': [0, cfg.duration]
 #cfg.analysis['plotConn'] = {'includePre': ['all'], 'includePost': ['all'], 'feature': 'weight','logPlot': True, 'saveFig': True, 'showFig': True}
 # cfg.analysis['plotSpikeHist'] = {'include': ['eachPop'], 'timeRange': [0,cfg.duration], 'spikeHistBin': 5, 'saveFig': True, 'showFig': False}
 # cfg.analysis['plotSpikeStats'] = {'include': ['eachPop'], 'timeRange': [0,cfg.duration], 'saveFig': True, 'showFig': False}
-cfg.analysis['plotTraces'] = {'include': [181,182,183], 'timeRange': [0, cfg.duration], 'saveFig': True, 'showFig': False, 'overlay': False}
+cfg.analysis['plotTraces'] = {'include': [55], 'timeRange': [0, cfg.duration], 'saveFig': True, 'showFig': False, 'overlay': False}
 # use for GA simulation
 cfg.verbose = False
 cfg.filename = 'sim_'

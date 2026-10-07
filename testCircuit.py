@@ -28,7 +28,7 @@ import importlib
 
 N_RUNS = 5
 
-SIM_DURATION = 5000  # ms
+SIM_DURATION = 4000 #ms
 SIM_DURATION_SEC = SIM_DURATION / 1000.0
 INPUT_RATE = 30
 
@@ -44,7 +44,7 @@ for run in range(N_RUNS):
     cfg = cfgmod.cfg
 
     cfg.inputRate = float(INPUT_RATE)
-    cfg.spktSeed = run * 23
+    cfg.spktSeed = run * 231
     cfg.duration = SIM_DURATION
     cfg.simLabel = f"Circuit_Trial_Medlock_run{run}"
 

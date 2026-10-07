@@ -124,4 +124,13 @@ def generate_new_SPKT(num_cells, rate, tstart, tstop, seed):
         print(f'cell {i}: {len(s)} spikes, mean rate = {len(s)/(T_STOP/1000.0):.2f} Hz')
  
     print(f'saved to {out_path}')
+
+
+# from claude for testing windup
+def make_volley_pop(n_cells, freq_hz, n_stim, t0=500.0, jitter_ms=1.0, seed=1000):
+    rng = np.random.default_rng(seed)
+    isi = 1000.0 / freq_hz
+    stim_times = t0 + isi * np.arange(n_stim)
+    return [sorted((stim_times + rng.normal(0, jitter_ms, n_stim)).tolist())
+            for _ in range(n_cells)]
  
