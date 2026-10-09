@@ -25,10 +25,9 @@ from spkt_gen import generate_new_SPKT
 import importlib
 
 
-
 N_RUNS = 5
 
-SIM_DURATION = 4000 #ms
+SIM_DURATION = 6000 #ms
 SIM_DURATION_SEC = SIM_DURATION / 1000.0
 INPUT_RATE = 30
 

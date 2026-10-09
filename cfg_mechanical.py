@@ -11,7 +11,7 @@ cfg = specs.SimConfig()
 
 cfg.hParams = {'celsius': 36, 'v_init': -60 }
 cfg.vrest = cfg.hParams['v_init']
-cfg.duration = 4000
+cfg.duration = 6000
  
 cfg.recordStep = 0.025
 
@@ -93,11 +93,11 @@ cfg.saveDataInclude = ['simData', 'simConfig', 'netParams', 'net']
 
 # ANALYSIS AND PLOTTING
 cells = [x for x in range(400, 410, 1)]
-cfg.analysis['plotRaster'] = {'include': ['all'], 'timeRange': [0, cfg.duration],'orderInverse': True, 'saveFig': True, 'showFig': False} 
+#cfg.analysis['plotRaster'] = {'include': ['all'], 'timeRange': [0, cfg.duration],'orderInverse': True, 'saveFig': True, 'showFig': False} 
 #cfg.analysis['plotConn'] = {'includePre': ['all'], 'includePost': ['all'], 'feature': 'weight','logPlot': True, 'saveFig': True, 'showFig': True}
 # cfg.analysis['plotSpikeHist'] = {'include': ['eachPop'], 'timeRange': [0,cfg.duration], 'spikeHistBin': 5, 'saveFig': True, 'showFig': False}
 # cfg.analysis['plotSpikeStats'] = {'include': ['eachPop'], 'timeRange': [0,cfg.duration], 'saveFig': True, 'showFig': False}
-cfg.analysis['plotTraces'] = {'include': [55], 'timeRange': [0, cfg.duration], 'saveFig': True, 'showFig': False, 'overlay': False}
+#cfg.analysis['plotTraces'] = {'include': [55], 'timeRange': [0, cfg.duration], 'saveFig': True, 'showFig': False, 'overlay': False}
 # use for GA simulation
 cfg.verbose = False
 cfg.filename = 'sim_'
