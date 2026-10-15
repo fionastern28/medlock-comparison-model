@@ -18,11 +18,11 @@ try:
 except:
     from cfg_mechanical import cfg
 
-PROB = 1  # probability of connection between pre and post populations
+PROB = .2  # probability of connection between pre and post populations
 OG_INPUT = False  # whether to use original input spike trains or generate new ones
 RATE_INCREASE = False  # whether to use increased input rates for Ab fiber
 NUM_C_FIBERS = 50
-NUM_AB_FIBERS = 4
+NUM_AB_FIBERS = 20
 AB_FIBER_RATE = 30  # Hz, mean rate of EACH Ab afferent
 C_FIBER_RATE = 10
 A_START = 1000
@@ -122,27 +122,27 @@ def make_poisson_pop(rate, n_cells, t_start, t_stop, seed_base):
                                              seed=seed).tolist())
         return trains
 
-spkt_Ab_testing_30 = make_poisson_pop(rate=30, n_cells=_nAb, t_start=1000, t_stop=1030, seed_base=_seed*30)
-spkt_Ab_testing_20 = make_poisson_pop(rate=30, n_cells=_nAb, t_start=1050, t_stop=1080, seed_base=_seed*20)
-spkt_Ab_testing_10 = make_poisson_pop(rate=30, n_cells=_nAb, t_start=1100, t_stop=1130, seed_base=_seed*10)
-spkt_Ab_testing_5 = make_poisson_pop(rate=30, n_cells=_nAb, t_start=1150, t_stop=1180, seed_base=_seed*5)
-spkt_Ab_testing_2 = make_poisson_pop(rate=30, n_cells=_nAb, t_start=1200, t_stop=1230, seed_base=_seed*2)
-spkt_Ab_testing_1 = make_poisson_pop(rate=30, n_cells=_nAb, t_start=1250, t_stop=1280, seed_base=_seed*2)
-spkt_Ab_testing_0 = make_poisson_pop(rate=30, n_cells=_nAb, t_start=1300, t_stop=1330, seed_base=_seed*5)
+spkt_Ab_testing_30 = make_poisson_pop(rate=1, n_cells=_nAb, t_start=0, t_stop=1000, seed_base=_seed*30)
+spkt_Ab_testing_20 = make_poisson_pop(rate=2, n_cells=_nAb, t_start=1000, t_stop=2000, seed_base=_seed*20)
+spkt_Ab_testing_10 = make_poisson_pop(rate=4, n_cells=_nAb, t_start=2000, t_stop=3000, seed_base=_seed*10)
+spkt_Ab_testing_5 = make_poisson_pop(rate=6, n_cells=_nAb, t_start=3000, t_stop=4000, seed_base=_seed*5)
+spkt_Ab_testing_2 = make_poisson_pop(rate=8, n_cells=_nAb, t_start=4000, t_stop=5000, seed_base=_seed*2)
+spkt_Ab_testing_1 = make_poisson_pop(rate=10, n_cells=_nAb, t_start=5000, t_stop=6000, seed_base=_seed*2)
 
 
-blocks = [spkt_Ab_testing_0,spkt_Ab_testing_1, spkt_Ab_testing_2, spkt_Ab_testing_5,
+blocks = [spkt_Ab_testing_1, spkt_Ab_testing_2, spkt_Ab_testing_5,
           spkt_Ab_testing_10, spkt_Ab_testing_20, spkt_Ab_testing_30]
 spkt_Ab_staircase = [sum(trains, []) for trains in zip(*blocks)]
 
-spkt_Ab_30 = make_poisson_pop(rate=AB_FIBER_RATE, n_cells=4, t_start=1000, t_stop=1050, seed_base=1)
+# below line was used to compare I neurons across both models with identical input
+#spkt_Ab_30 = make_poisson_pop(rate=AB_FIBER_RATE, n_cells=4, t_start=1000, t_stop=1050, seed_base=1)
 
 
 #netParams.popParams['C_PEP'] = {'cellModel': 'VecStim', 'numCells': NUM_C_FIBERS, 'spkTimes': spkt_C_pulse}  # input from peptidergic C fibers (pulse)
 ## PRIMARY AFFERENTS TIME-VARYING STIMULUS (NORMAL STIMULUS)
-netParams.popParams['Ab'] = {'cellModel': 'VecStim', 'numCells': 20, 'spkTimes': spkt_Ab_30}  # input from Ab_slow adapting type I
+netParams.popParams['Ab'] = {'cellModel': 'VecStim', 'numCells': 20, 'spkTimes': spkt_Ab_staircase}  # input from Ab_slow adapting type I
 #netParams.popParams['Ad'] = {'cellModel': 'VecStim', 'numCells': 20, 'spkTimes': spkt_Ad}  # input from Adelta
-netParams.popParams['C_PEP'] = {'cellModel': 'VecStim', 'numCells': NUM_C_FIBERS, 'spkTimes': spkt_C}  # input from peptidergic C fibers
+#netParams.popParams['C_PEP'] = {'cellModel': 'VecStim', 'numCells': NUM_C_FIBERS, 'spkTimes': spkt_C}  # input from peptidergic C fibers
 #netParams.popParams['C_NP'] = {'cellModel': 'VecStim', 'numCells': 80, 'spkTimes': spkt_C}  # input from non-peptidergic C fibers
 
 ## SETTING OF SPINAL NEURONS

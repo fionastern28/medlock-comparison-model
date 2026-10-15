@@ -14,5 +14,4 @@ arm64/
 EOF
 
 # Simulation outputs
-data/*.json
-data/*.png
+data/
