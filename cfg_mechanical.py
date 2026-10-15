@@ -80,10 +80,12 @@ cfg.recordTraces['v_soma'] = {'sec': 'soma', 'loc': 0.5, 'var': 'v'}
 #cfg.recordTraces['v_dend_.5'] = {'sec': 'dend', 'loc': 0.5, 'var': 'v'}
 
 #cfg.recordTraces['i_AMPA'] = {'sec':'dend', 'loc':0.5, 'synMech':'AMPA', 'var':'i'}
-cfg.recordTraces['i_NMDA'] = {'sec':'dend', 'loc':0.5, 'synMech':'NMDA', 'var':'i'}
+#cfg.recordTraces['i_NMDA'] = {'sec':'dend', 'loc':0.5, 'synMech':'NMDA', 'var':'i'}
 
 #cfg.recordTraces['g_AMPA'] = {'sec':'dend', 'loc':0.5, 'synMech':'AMPA', 'var':'g'}
 #cfg.recordTraces['g_NMDA'] = {'sec':'dend', 'loc':0.5, 'synMech':'NMDA', 'var':'g'}
+
+cfg.recordCells = ['PKC', 'PV']
 
 cfg.simLabel = f"Circuit_Trial_Medlock"
 cfg.saveFolder = 'data'
@@ -93,13 +95,13 @@ cfg.saveDataInclude = ['simData', 'simConfig', 'netParams', 'net']
 
 # ANALYSIS AND PLOTTING
 cells = [x for x in range(400, 410, 1)]
-#cfg.analysis['plotRaster'] = {'include': ['all'], 'timeRange': [0, cfg.duration],'orderInverse': True, 'saveFig': True, 'showFig': False} 
+cfg.analysis['plotRaster'] = {'include': ['all'], 'timeRange': [0, cfg.duration],'orderInverse': True, 'saveFig': True, 'showFig': False} 
 #cfg.analysis['plotConn'] = {'includePre': ['all'], 'includePost': ['all'], 'feature': 'weight','logPlot': True, 'saveFig': True, 'showFig': True}
 # cfg.analysis['plotSpikeHist'] = {'include': ['eachPop'], 'timeRange': [0,cfg.duration], 'spikeHistBin': 5, 'saveFig': True, 'showFig': False}
 # cfg.analysis['plotSpikeStats'] = {'include': ['eachPop'], 'timeRange': [0,cfg.duration], 'saveFig': True, 'showFig': False}
-#cfg.analysis['plotTraces'] = {'include': [55], 'timeRange': [0, cfg.duration], 'saveFig': True, 'showFig': False, 'overlay': False}
+cfg.analysis['plotTraces'] = {'include': [105], 'timeRange': [0, cfg.duration], 'saveFig': True, 'showFig': False, 'overlay': False}
 # use for GA simulation
 cfg.verbose = False
 cfg.filename = 'sim_'
-cfg.printPopAvgRates = [ 0, 1000 ]
+cfg.printPopAvgRates = [0, cfg.duration]
 cfg.dt = 0.025

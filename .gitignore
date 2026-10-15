@@ -12,3 +12,7 @@ __pycache__/
 # NEURON build artifacts
 arm64/
 EOF
+
+# Simulation outputs
+data/*.json
+data/*.png
