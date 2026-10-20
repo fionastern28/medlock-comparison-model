@@ -24,7 +24,7 @@ RATE_INCREASE = False  # whether to use increased input rates for Ab fiber
 NUM_C_FIBERS = 50
 NUM_AB_FIBERS = 20
 AB_FIBER_RATE = 30  # Hz, mean rate of EACH Ab afferent
-C_FIBER_RATE = 10
+C_FIBER_RATE = 20
 A_START = 1000
 A_END = 1050
 
@@ -140,9 +140,9 @@ spkt_Ab_staircase = [sum(trains, []) for trains in zip(*blocks)]
 
 #netParams.popParams['C_PEP'] = {'cellModel': 'VecStim', 'numCells': NUM_C_FIBERS, 'spkTimes': spkt_C_pulse}  # input from peptidergic C fibers (pulse)
 ## PRIMARY AFFERENTS TIME-VARYING STIMULUS (NORMAL STIMULUS)
-netParams.popParams['Ab'] = {'cellModel': 'VecStim', 'numCells': 20, 'spkTimes': spkt_Ab_staircase}  # input from Ab_slow adapting type I
+#netParams.popParams['Ab'] = {'cellModel': 'VecStim', 'numCells': 20, 'spkTimes': spkt_Ab_staircase}  # input from Ab_slow adapting type I
 #netParams.popParams['Ad'] = {'cellModel': 'VecStim', 'numCells': 20, 'spkTimes': spkt_Ad}  # input from Adelta
-#netParams.popParams['C_PEP'] = {'cellModel': 'VecStim', 'numCells': NUM_C_FIBERS, 'spkTimes': spkt_C}  # input from peptidergic C fibers
+netParams.popParams['C_PEP'] = {'cellModel': 'VecStim', 'numCells': NUM_C_FIBERS, 'spkTimes': spkt_C}  # input from peptidergic C fibers
 #netParams.popParams['C_NP'] = {'cellModel': 'VecStim', 'numCells': 80, 'spkTimes': spkt_C}  # input from non-peptidergic C fibers
 
 ## SETTING OF SPINAL NEURONS
@@ -152,7 +152,7 @@ cells.EXdelayedRule['conds'] = {'cellType': 'EXdl'}
 #cells.CRRule['conds'] = {'cellType': 'CR'}
 #cells.SOMRule['conds'] = {'cellType': 'SOM'}
 #cells.EXinitialRule['conds'] = {'cellType': 'EXib'}
-#cells.PROcellRule['conds'] = {'cellType': 'PRO'}
+cells.PROcellRule['conds'] = {'cellType': 'PRO'}
 
 #cells.PROcellRule['secs']['soma']['threshold'] = 0
 
@@ -165,7 +165,7 @@ netParams.cellParams['PVRule'] = cells.INcellRule
 #netParams.cellParams['SOMRule'] = cells.SOMRule
 #netParams.cellParams['CRRule'] = cells.CRRule
 #netParams.cellParams['ISLETRule'] = cells.INcellRule
-#netParams.cellParams['NK1Rule'] = cells.PROcellRule
+netParams.cellParams['NK1Rule'] = cells.PROcellRule
 
 '''
 
@@ -183,9 +183,10 @@ netParams.popParams['NK1'] = {'cellType': 'PRO', 'numCells': 10} # NK1+ neurons 
 
 '''
 #netParams.popParams['DOR' ] = {'cellType': 'EXdl', 'numCells': 180} # DOR+ neurons (excitatory)
-netParams.popParams['PKC' ] = {'cellType': 'PKC', 'numCells': 30} # PKCg+ neurons (excitatory)
+#netParams.popParams['PKC' ] = {'cellType': 'PKC', 'numCells': 30} # PKCg+ neurons (excitatory)
 #netParams.popParams['VGLUT3'] = {'cellType': 'EXdl', 'numCells': 4} # VGLUT3+ neurons (excitatory)
-netParams.popParams['PV'] = {'cellType': 'IN', 'numCells': 15} # PV+ neurons (inhibitory) 230 - (30+15+20) = 165
+#netParams.popParams['PV'] = {'cellType': 'IN', 'numCells': 15} # PV+ neurons (inhibitory) 230 - (30+15+20) = 165
+netParams.popParams['NK1'] = {'cellType': 'PRO', 'numCells': 10} # NK1+ neurons (projection)
 
 
 ###################################################################################################################################
@@ -295,6 +296,38 @@ netParams.connParams['C_PEP_NMDA->PKC'] = {
     'loc': 0.5,
     'synMech': 'NMDA'}
 
+netParams.connParams['C_PEP_AMPA->NK1'] = {
+    'oneSynPerNetcon': True,
+    'preConds': {'popLabel': 'C_PEP'}, 
+    'postConds': {'popLabel': 'NK1'},  
+    'weight': cfg.C_NK1_AMPA,
+    'probability': 0.2,
+    'sec': 'dend',
+    'delay': 10.0,
+    'loc': 0.5,
+    'synMech': 'AMPA'}
+
+netParams.connParams['C_PEP_NMDA->NK1'] = {
+    'oneSynPerNetcon': True,
+    'preConds': {'popLabel': 'C_PEP'}, 
+    'postConds': {'popLabel': 'NK1'},  
+    'weight': cfg.C_NK1_NMDA,
+    'probability': 0.2,
+    'sec': 'dend',
+    'delay': 10.0,
+    'loc': 0.5,
+    'synMech': 'NMDA'}
+
+netParams.connParams['C_PEP_NK1->NK1'] = {
+    'oneSynPerNetcon': True,
+    'preConds': {'popLabel': 'C_PEP'}, 
+    'postConds': {'popLabel': 'NK1'},  
+    'weight': cfg.C_NK1_NK1,
+    'probability': 0.2,
+    'sec': 'dend',
+    'delay': 10.0,
+    'loc': 0.5,
+    'synMech': 'NK13'}
 
 '''
 netParams.connParams['Ab_SAII_AMPA->PKC'] = {

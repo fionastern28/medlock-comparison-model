@@ -25,7 +25,7 @@ from spkt_gen import generate_new_SPKT
 import importlib
 
 
-N_RUNS = 20
+N_RUNS = 1
 
 SIM_DURATION = 6000 #ms
 SIM_DURATION_SEC = SIM_DURATION / 1000.0

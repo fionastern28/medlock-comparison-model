@@ -48,9 +48,9 @@ cfg.C_EX_NMDA = 0.000407345
 cfg.C_TrC_AMPA = 0.164705             
 cfg.C_DYN_AMPA = 0.184135             
 cfg.C_ISLET_AMPA = 0.123535             
-cfg.C_NK1_AMPA = 0.00009
-cfg.C_NK1_NMDA = 8.7447e-05
-cfg.C_NK1_NK1 = 3.2414e-08
+cfg.C_NK1_AMPA = 0.00009 
+cfg.C_NK1_NMDA = 8.7447e-05 
+cfg.C_NK1_NK1 = 3.2414e-08 
 
 cfg.VGLUT3_PKC_AMPA = 0.16629
 cfg.VGLUT3_PKC_NMDA = 0.15549
@@ -85,7 +85,7 @@ cfg.recordTraces['v_soma'] = {'sec': 'soma', 'loc': 0.5, 'var': 'v'}
 #cfg.recordTraces['g_AMPA'] = {'sec':'dend', 'loc':0.5, 'synMech':'AMPA', 'var':'g'}
 #cfg.recordTraces['g_NMDA'] = {'sec':'dend', 'loc':0.5, 'synMech':'NMDA', 'var':'g'}
 
-cfg.recordCells = ['PKC', 'PV']
+cfg.recordCells = ['NK1']
 
 cfg.simLabel = f"Circuit_Trial_Medlock"
 cfg.saveFolder = 'data'
@@ -99,7 +99,7 @@ cfg.analysis['plotRaster'] = {'include': ['all'], 'timeRange': [0, cfg.duration]
 #cfg.analysis['plotConn'] = {'includePre': ['all'], 'includePost': ['all'], 'feature': 'weight','logPlot': True, 'saveFig': True, 'showFig': True}
 # cfg.analysis['plotSpikeHist'] = {'include': ['eachPop'], 'timeRange': [0,cfg.duration], 'spikeHistBin': 5, 'saveFig': True, 'showFig': False}
 # cfg.analysis['plotSpikeStats'] = {'include': ['eachPop'], 'timeRange': [0,cfg.duration], 'saveFig': True, 'showFig': False}
-cfg.analysis['plotTraces'] = {'include': [105], 'timeRange': [0, cfg.duration], 'saveFig': True, 'showFig': False, 'overlay': False}
+cfg.analysis['plotTraces'] = {'include': [13], 'timeRange': [0, cfg.duration], 'saveFig': True, 'showFig': False, 'overlay': False}
 # use for GA simulation
 cfg.verbose = False
 cfg.filename = 'sim_'

@@ -40,11 +40,11 @@ from netpyne import sim
 MODEL_LABEL       = 'medlock'                 # legend text; must be unique
 NETPARAMS_MODULE  = 'netParams_mechanical'    # module basename, no .py
 CFG_MODULE        = 'cfg_mechanical'          # module basename, no .py
-TARGET_POP        = 'PKC'                     # population to measure
+TARGET_POP        = 'PV'                     # population to measure
 
 # keep these IDENTICAL across the models you intend to compare
-INPUT_RATES = [1, 3, 5, 7, 9, 12, 15, 20, 25, 30, 35, 40, 45, 50]#, 55, 60, 65, 70]  # Hz per afferent
-SEEDS       = [1056, 3008, 5200, 601, 7231, 853, 6000]  # RNG seeds for Poisson trains
+INPUT_RATES = [1, 3, 5, 7, 9, 12, 15, 20]#, 55, 60, 65, 70]  # Hz per afferent
+SEEDS       = [1056, 3008, 5200, 601]  # RNG seeds for Poisson trains
 DURATION    = 2000.0    # ms per run
 TRANSIENT   = 500.0     # ms discarded at the start of each run
 # ===========================================================================
@@ -76,9 +76,10 @@ def measure_pop_rate(pop_label, t_start, t_stop):
     window_s = (t_stop - t_start) / 1000.0
     return int(mask.sum()) / window_s / len(gids)
 
-
+# commented out and replaced with other run_one per claud 10/20/26
+'''
 def run_one(input_rate, seed):
-    '''Run a single simulation, return (output_rate_Hz, numAb).'''
+    #Run a single simulation, return (output_rate_Hz, numAb).
     cfgmod = importlib.import_module(CFG_MODULE)
     cfg = cfgmod.cfg
 
@@ -105,7 +106,47 @@ def run_one(input_rate, seed):
     sim.clearAll()
 
     return rate, n_ab
+'''
 
+def run_one(input_rate, seed):
+    ''' Run a single simulation, return (output_rate_Hz, numAb).'''
+    cfgmod = importlib.import_module(CFG_MODULE)
+    cfg = cfgmod.cfg
+
+    cfg.inputRate = float(input_rate)
+    cfg.spktSeed = seed
+    cfg.duration = DURATION
+    cfg.abInputMode = 'poisson'
+    cfg.numAb = 20
+
+    # keep the sweep fast and quiet: no plots, no saved files, no traces
+    cfg.analysis = {}
+    cfg.recordTraces = {}
+    cfg.saveJson = False
+    cfg.savePickle = False
+    cfg.verbose = False
+    cfg.printPopAvgRates = False
+
+    # reload so fresh Poisson trains are drawn with this rate/seed
+    npmod = importlib.import_module(NETPARAMS_MODULE)
+    importlib.reload(npmod)
+
+    n_ab = getattr(cfg, 'numAb', 20)
+
+    # Sweep network = Ab -> PV only, regardless of which pops are enabled
+    # in netParams. Pop must be named 'Ab' to match the medlock connParams.
+    netParams = npmod.netParams
+    for pop in list(netParams.popParams.keys()):
+        del netParams.popParams[pop]
+    netParams.popParams['Ab'] = {'cellModel': 'VecStim', 'numCells': n_ab,
+                                 'spkTimes': npmod.spkt_Ab}
+    netParams.popParams['PV'] = {'cellType': 'IN', 'numCells': 15}
+
+    sim.createSimulate(netParams=netParams, simConfig=cfg)
+    rate = measure_pop_rate(TARGET_POP, TRANSIENT, DURATION)
+    sim.clearAll()
+
+    return rate, n_ab
 
 def main():
     out_path = os.path.join(os.path.dirname(os.path.abspath(__file__)),
