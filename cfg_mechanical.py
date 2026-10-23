@@ -11,7 +11,7 @@ cfg = specs.SimConfig()
 
 cfg.hParams = {'celsius': 36, 'v_init': -60 }
 cfg.vrest = cfg.hParams['v_init']
-cfg.duration = 5000
+cfg.duration = 2000
  
 cfg.recordStep = 0.025
 
