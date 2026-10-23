@@ -11,7 +11,7 @@ cfg = specs.SimConfig()
 
 cfg.hParams = {'celsius': 36, 'v_init': -60 }
 cfg.vrest = cfg.hParams['v_init']
-cfg.duration = 6000
+cfg.duration = 5000
  
 cfg.recordStep = 0.025
 
@@ -54,8 +54,8 @@ cfg.C_NK1_NK1 = 3.2414e-08
 
 cfg.VGLUT3_PKC_AMPA = 0.16629
 cfg.VGLUT3_PKC_NMDA = 0.15549
-cfg.PV_GABA = 0.29416     * 0.05     
-cfg.PV_GLY =  0.011521    * 0.05     
+cfg.PV_GABA = 0.29416     * 0.07 #0.05  
+cfg.PV_GLY =  0.011521    * 0.07 #0.05     
 cfg.DYN_ISLET_GABA = 0.36182     
 cfg.ISLET_GABA = 0.34293         
 cfg.DYN_EX_GABA = 4.50e-05        
@@ -85,7 +85,7 @@ cfg.recordTraces['v_soma'] = {'sec': 'soma', 'loc': 0.5, 'var': 'v'}
 #cfg.recordTraces['g_AMPA'] = {'sec':'dend', 'loc':0.5, 'synMech':'AMPA', 'var':'g'}
 #cfg.recordTraces['g_NMDA'] = {'sec':'dend', 'loc':0.5, 'synMech':'NMDA', 'var':'g'}
 
-cfg.recordCells = ['NK1']
+#cfg.recordCells = ['DYN']
 
 cfg.simLabel = f"Circuit_Trial_Medlock"
 cfg.saveFolder = 'data'

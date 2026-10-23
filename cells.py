@@ -256,7 +256,7 @@ INcellRule  = {# was termed SG cell in prior model
                       'mechs': {'B_A': {},
                                 'B_DR': {},
                                 'B_Na': {'gnabar': 3.45, 'alpha_shift': 0.0, 'beta_shift': 0.0},
-                                'KDR': {'gkbar': 0.0},
+                             #   'KDR': {'gkbar': 0.0},
                                 'KDRI': {'gkbar': 0.076},
                                 'pas': {'g': 1.1e-05, 'e': -70.0}},
                       'topol': {'parentSec': 'soma', 'parentX': 1.0, 'childX': 0.0}},
