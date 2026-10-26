@@ -124,13 +124,13 @@ def make_poisson_pop(rate, n_cells, t_start, t_stop, seed_base):
         return trains
 
 #ascending staircase of inputs
-'''
-spkt_Ab_testing_30 = make_poisson_pop(rate=5, n_cells=_nAb, t_start=0, t_stop=1000, seed_base=_seed*30)
-spkt_Ab_testing_20 = make_poisson_pop(rate=10, n_cells=_nAb, t_start=1000, t_stop=2000, seed_base=_seed*20)
-spkt_Ab_testing_10 = make_poisson_pop(rate=15, n_cells=_nAb, t_start=2000, t_stop=3000, seed_base=_seed*10)
-spkt_Ab_testing_5 = make_poisson_pop(rate=20, n_cells=_nAb, t_start=3000, t_stop=4000, seed_base=_seed*5)
-spkt_Ab_testing_2 = make_poisson_pop(rate=25, n_cells=_nAb, t_start=4000, t_stop=5000, seed_base=_seed*2)
-spkt_Ab_testing_1 = make_poisson_pop(rate=30, n_cells=_nAb, t_start=5000, t_stop=6000, seed_base=_seed*2)
+
+spkt_Ab_testing_30 = make_poisson_pop(rate=10, n_cells=_nAb, t_start=0, t_stop=1000, seed_base=_seed*30)
+spkt_Ab_testing_20 = make_poisson_pop(rate=20, n_cells=_nAb, t_start=1000, t_stop=2000, seed_base=_seed*20)
+spkt_Ab_testing_10 = make_poisson_pop(rate=30, n_cells=_nAb, t_start=2000, t_stop=3000, seed_base=_seed*10)
+spkt_Ab_testing_5 = make_poisson_pop(rate=40, n_cells=_nAb, t_start=3000, t_stop=4000, seed_base=_seed*5)
+spkt_Ab_testing_2 = make_poisson_pop(rate=50, n_cells=_nAb, t_start=4000, t_stop=5000, seed_base=_seed*2)
+spkt_Ab_testing_1 = make_poisson_pop(rate=60, n_cells=_nAb, t_start=5000, t_stop=6000, seed_base=_seed*2)
 '''
 
 # inputs for pain inhibition testing
@@ -144,7 +144,7 @@ spkt_Ab_testing_1 = make_poisson_pop(rate=30, n_cells=_nAb, t_start=1250, t_stop
 #spkt_Ab_testing_a = make_poisson_pop(rate=30, n_cells=_nAb, t_start=4000, t_stop=4030, seed_base=_seed*29)
 #spkt_Ab_testing_b = make_poisson_pop(rate=30, n_cells=_nAb, t_start=5000, t_stop=5020, seed_base=_seed*517)
 #spkt_Ab_testing_c = make_poisson_pop(rate=30, n_cells=_nAb, t_start=6000, t_stop=6010, seed_base=_seed*413)
-
+'''
 
 blocks = [spkt_Ab_testing_1, spkt_Ab_testing_2, spkt_Ab_testing_5,
           spkt_Ab_testing_10, spkt_Ab_testing_20, spkt_Ab_testing_30]
@@ -159,7 +159,7 @@ spkt_Ab_staircase = [sum(trains, []) for trains in zip(*blocks)]
 ## PRIMARY AFFERENTS TIME-VARYING STIMULUS (NORMAL STIMULUS)
 netParams.popParams['Ab'] = {'cellModel': 'VecStim', 'numCells': 20, 'spkTimes': spkt_Ab_staircase}  # input from Ab_slow adapting type I
 #netParams.popParams['Ad'] = {'cellModel': 'VecStim', 'numCells': 20, 'spkTimes': spkt_Ad}  # input from Adelta
-netParams.popParams['C_PEP'] = {'cellModel': 'VecStim', 'numCells': NUM_C_FIBERS, 'spkTimes': spkt_C}  # input from peptidergic C fibers
+#netParams.popParams['C_PEP'] = {'cellModel': 'VecStim', 'numCells': NUM_C_FIBERS, 'spkTimes': spkt_C}  # input from peptidergic C fibers
 #netParams.popParams['C_NP'] = {'cellModel': 'VecStim', 'numCells': 80, 'spkTimes': spkt_C}  # input from non-peptidergic C fibers
 
 ## SETTING OF SPINAL NEURONS
@@ -200,11 +200,11 @@ netParams.popParams['NK1'] = {'cellType': 'PRO', 'numCells': 10} # NK1+ neurons 
 
 '''
 #netParams.popParams['DOR' ] = {'cellType': 'EXdl', 'numCells': 180} # DOR+ neurons (excitatory)
-netParams.popParams['PKC' ] = {'cellType': 'PKC', 'numCells': 30} # PKCg+ neurons (excitatory)
+#netParams.popParams['PKC' ] = {'cellType': 'PKC', 'numCells': 30} # PKCg+ neurons (excitatory)
 #netParams.popParams['VGLUT3'] = {'cellType': 'EXdl', 'numCells': 4} # VGLUT3+ neurons (excitatory)
-netParams.popParams['PV'] = {'cellType': 'IN', 'numCells': 15} # PV+ neurons (inhibitory) 230 - (30+15+20) = 165
+#netParams.popParams['PV'] = {'cellType': 'IN', 'numCells': 15} # PV+ neurons (inhibitory) 230 - (30+15+20) = 165
 #netParams.popParams['NK1'] = {'cellType': 'PRO', 'numCells': 10} # NK1+ neurons (projection)
-#netParams.popParams['DYN'] = {'cellType': 'IN', 'numCells': 60} # Central/DYN+ neurons (inhibitory)
+netParams.popParams['DYN'] = {'cellType': 'IN', 'numCells': 60} # Central/DYN+ neurons (inhibitory)
 
 
 ###################################################################################################################################
